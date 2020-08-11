@@ -13,7 +13,7 @@ use Twig\Environment;
 class AdvertController
 {
   /**
-   * @Route( name="oc_advert_index")
+   * @Route( "/{page}", name="oc_advert_index", requirements={ "page" = "\d+"}, defaults={"page" = 1})
    */
   public function index(Environment $twig)
   {
@@ -23,7 +23,7 @@ class AdvertController
   }
 
   /**
-   * @Route("/view/{id}", name="oc_advert_view")
+   * @Route("/view/{id}", name="oc_advert_view" requierements={ "id" = "\d+"})
    */
   public function view($id)
   {
@@ -33,14 +33,23 @@ class AdvertController
   }
 
   /**
-   * @Route("/view/{year}/{slug}.{format}", name="oc_advert_view_slug", requirements={
-   *   "year"   = "\d{4}",
-   *   "format" = "html|xml"
-   * }, defaults={"format" = "html"})
+   * @Route("/add", name="oc_advert_add")
    */
-  public function viewSlug($slug, $year, $format)
+   public function add()
   {
-    return new Response("On pourrait afficher l'annonce correspondant au
-    slug '".$slug."', créée en ".$year." et au format ".$format.".");
+  }
+
+  /**
+   * @Route("/edit/{id}", name="oc_advert_edit", requirements={"id" = "\d+"})
+   */
+  public function edit($id)
+  {
+  }
+
+  /**
+   * @Route("/delete/{id}", name="oc_advert_delete", requirements={"id" = "\d+"})
+   */
+  public function delete($id)
+  {
   }
 }
