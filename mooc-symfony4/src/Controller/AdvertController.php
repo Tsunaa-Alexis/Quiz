@@ -25,7 +25,7 @@ class AdvertController
   /**
    * @Route("/view/{id}", name="oc_advert_view" requierements={ "id" = "\d+"})
    */
-  public function view($id)
+  public function view($id, Request $request)
   {
     // $id vaut 5 si l'URL appelée est /advert/view/5
     
