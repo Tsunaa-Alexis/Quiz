@@ -21,8 +21,9 @@ class Post {
 		return $this->_user;
     }
     
-    public function getMessage($id)
+    public function getMessage()
 	{
 		return $this->_message;
 }
+
 ?>
