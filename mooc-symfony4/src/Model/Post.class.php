@@ -3,8 +3,8 @@
 class Post {
     private $_post_id;
     private $_titre;
-    private User $_user;
-    private Message $_message;
+    private $_user;
+    private $_message;
 
     public function getPost_id()
 	{
