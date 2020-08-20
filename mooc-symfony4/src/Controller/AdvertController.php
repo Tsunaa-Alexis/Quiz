@@ -31,5 +31,14 @@ class AdvertController extends AbstractController
     return $this->render('Advert/index.html.twig');
   }
 
+  /**
+   * @Route("/{categorie}", name="oc_advert_post")
+   */
+  public function post() {
+
+    return $this->render('Advert/post.html.twig');
+    
+  }
+
   
 }
