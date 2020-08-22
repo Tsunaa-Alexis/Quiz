@@ -3,6 +3,7 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -32,12 +33,15 @@ class AdvertController extends AbstractController
   }
 
   /**
-   * @Route("/{categorie}", name="oc_advert_post")
+   * @Route("/post/{id}", name="oc_advert_post")
    */
-  public function post() {
-
-    return $this->render('Advert/post.html.twig');
+  public function post($id) {
     
+    // On récupère le repository
+    $entityManager = $this->getDoctrine()->getManager()->getRepository('App:User');
+    $user = $entityManager->find($id);
+    return $this->render('Advert/post.html.twig', ['user' => $user]);
+
   }
 
   
