@@ -38,9 +38,10 @@ class AdvertController extends AbstractController
   public function post($id) {
     
     // On récupère le repository
-    $entityManager = $this->getDoctrine()->getManager()->getRepository('App:User');
-    $user = $entityManager->find($id);
-    return $this->render('Advert/post.html.twig', ['user' => $user]);
+    $post = $this->getDoctrine()->getManager()->getRepository('App:Post')->find($id);
+    $user = $this->getDoctrine()->getManager()->getRepository('App:User')->find($post->getUser());
+    $message = $this->getDoctrine()->getManager()->getRepository('App:Message')->find($post->getMess());
+    return $this->render('Advert/post.html.twig', ['post' => $post, 'user' => $user, 'message' => $message]);
 
   }
 

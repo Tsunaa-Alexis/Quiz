@@ -65,7 +65,7 @@ class Post
         return $this;
     }
 
-    public function getMess(): ?Message
+    public function getMess(): ?message
     {
         return $this->mess;
     }
@@ -75,7 +75,7 @@ class Post
         $this->mess = $mess;
     }
 
-    public function getUser(): ?User
+    public function getUser(): ?user
     {
         return $this->user;
     }

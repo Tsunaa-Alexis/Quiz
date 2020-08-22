@@ -49,7 +49,7 @@ class User
 
     public function getPseudo(): ?string
     {
-        return $this->$pseudo;
+        return $this->pseudo;
     }
 
     public function setPseudo(?string $pseudo): self
