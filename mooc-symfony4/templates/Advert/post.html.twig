@@ -4,6 +4,12 @@
 
 {% block title %}{{ parent() }} - Post{% endblock %}
 
+{% block breadcrumb %}
+  <li class="breadcrumb-item"><a href="{{ path('oc_advert_index')}}">Home</a></li>
+  <li class="breadcrumb-item"><a href="{{ path('oc_advert_annonces', { 'id' : categorie.categorieId })}}">{{categorie.catName}}</a></li>
+  <li class="breadcrumb-item active" aria-current="page">{{post.titre}}</li>
+{% endblock %}
+
 {% block body %}
   <div class="container-md">
     <div class="row">

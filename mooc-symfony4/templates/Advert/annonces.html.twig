@@ -4,6 +4,11 @@
 
 {% block title %}{{ parent() }} - Annonces{% endblock %}
 
+{% block breadcrumb %}
+  <li class="breadcrumb-item"><a href="{{ path('oc_advert_index')}}">Home</a></li>
+  <li class="breadcrumb-item active" aria-current="page">{{categorie.catName}}</li>
+{% endblock %}
+
 {% block body %}
   <div class="my-3 p-3 bg-blue rounded shadow-sm">
     <h6 class="border-bottom border-gray pb-2 mb-0">Annonces : </h6>
