@@ -45,6 +45,16 @@ class Message
      */
     private $user;
 
+    /**
+     * @var \Post
+     *
+     * @ORM\ManyToOne(targetEntity="Post")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="post_id", referencedColumnName="post_id")
+     * })
+     */
+    private $post;
+
     public function __construct()
     {
         $this->date = new \DateTime();
@@ -76,6 +86,26 @@ class Message
     public function setDate(\DateTime $date): void
     {
         $this->date = $date;
+    }
+
+    public function getUser(): ?user
+    {
+        return $this->user;
+    }
+
+    public function setUser(User $user): void
+    {
+        $this->user = $user;
+    }
+
+    public function getPost(): ?post
+    {
+        return $this->post;
+    }
+
+    public function setPost(Post $post): void
+    {
+        $this->post = $post;
     }
 
 
