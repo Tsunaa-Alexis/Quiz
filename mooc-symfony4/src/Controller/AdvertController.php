@@ -28,10 +28,7 @@ class AdvertController extends AbstractController
   public function post($id) {
     
     $post = $this->getDoctrine()->getManager()->getRepository('App:Post')->find($id);
-    $user = $this->getDoctrine()->getManager()->getRepository('App:User')->find($post->getUser());
-    $message = $this->getDoctrine()->getManager()->getRepository('App:Message')->find($post->getMess());
-    $categorie = $this->getDoctrine()->getManager()->getRepository('App:Categorie')->find($post->getCategorie());
-    return $this->render('Advert/post.html.twig', ['post' => $post, 'user' => $user, 'message' => $message, 'categorie' => $categorie]);
+    return $this->render('Advert/post.html.twig', ['post' => $post]);
 
   }
 
