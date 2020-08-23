@@ -48,6 +48,16 @@ class Post
      */
     private $user;
 
+    /**
+     * @var \Categorie
+     *
+     * @ORM\ManyToOne(targetEntity="Categorie")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="categorie_id", referencedColumnName="categorie_id")
+     * })
+     */
+    private $categorie;
+
     public function getPostId(): ?int
     {
         return $this->postId;
@@ -83,6 +93,16 @@ class Post
     public function setUser(User $user): void
     {
         $this->user = $user;
+    }
+
+    public function getCategorie(): ?categorie
+    {
+        return $this->categorie;
+    }
+
+    public function setCategorie(Categorie $categorie): void
+    {
+        $this->categorie = $categorie;
     }
 
 

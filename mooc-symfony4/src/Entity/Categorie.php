@@ -35,5 +35,34 @@ class Categorie
      */
     private $catDescription;
 
+    public function getCategorieId(): ?int
+    {
+        return $this->categorieId;
+    }
+
+    public function getCatName(): ?string
+    {
+        return $this->catName;
+    }
+
+    public function setCatName(?string $catName): self
+    {
+        $this->catName = $catName;
+
+        return $this;
+    }
+
+    public function getCatDescription(): ?string
+    {
+        return $this->catDescription;
+    }
+
+    public function setCatDescription(?string $catDescription): self
+    {
+        $this->catDescription = $catDescription;
+
+        return $this;
+    }
+
 
 }

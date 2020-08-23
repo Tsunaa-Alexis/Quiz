@@ -20,7 +20,7 @@
                 <a class="text-muted" href="#">Inscription</a>
             </div>
             <div class="col-4 text-center">
-                <a class="blog-header-logo text-dark" href="#">Forum</a>
+                <a class="blog-header-logo text-dark" href="{{ path('oc_advert_index')}}">Forum</a>
             </div>
             <div class="col-4 d-flex justify-content-end align-items-center">
                 <a class="text-muted" href="#" aria-label="Search">
@@ -32,6 +32,15 @@
     </header>
 
     <main role="main" class="container my-3 p-3 bg-white rounded">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                {% block breadcrumb %}
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item"><a href="#">Library</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Data</li>
+                {% endblock %}
+            </ol>
+        </nav>
         {% block body %}
         {% endblock %}
     </main>
