@@ -1,9 +1,20 @@
 {# templates/Advert/test.html.twig #}
 
 
-<h3>Formulaire d'annonce</h3>
-
-<div class="well">
-  {{ form_start(form, {method: 'POST', action: path('newmessage', {'postId': post.postId})}) }}
-  {{ form_end(form) }}
-</div>
+  <div class="row comment-form">
+	  <div class="col-md">
+			<h3>Commentaire</h3>
+      {{ form_start(form, {method: 'POST', action: path('newmessage', {'postId': post.postId})}) }}
+      {# Les erreurs générales du formulaire. #}
+        {{ form_errors(form) }}
+				<div class="form-group">
+          {{ form_widget(form.contenu, {attr: {'class': 'form-control'}}) }}
+        </div>
+        <div class="form-group text-right">
+          {# Pour le bouton, pas de label ni d'erreur, on affiche juste le widget #}
+          {{ form_widget(form.ajouter, {'attr': {'class': 'btn btn-secondary comment-send'}}) }}
+        </div>
+        {# Fermeture de la balise <form> du formulaire HTML #}
+      {{ form_end(form) }}
+    </div>
+  </div>

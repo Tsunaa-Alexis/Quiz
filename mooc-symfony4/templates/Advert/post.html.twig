@@ -87,19 +87,7 @@
       </div>
     </div>
     {% endfor %}
-    <div class="row comment-form">
-		  <div class="col-md">
-			  <h3>Commentaire</h3>
-			  <form method="POST" action="">
-				  <div class="form-group">
-            <textarea id="editor" class="form-control"></textarea>
-          </div>
-          <div class="form-group text-right">
-            <button class="btn btn-secondary comment-send" type="button">Ajouter</button>
-          </div>
-        </form>
-      </div>
-    </div>
+    {{ render(controller('App\\Controller\\AdvertController::MessageForm', {'id': post.postId})) }}
   </div>
-  {{ render(controller('App\\Controller\\AdvertController::MessageForm', {'id': post.postId})) }}
+  
 {% endblock %}
