@@ -7,12 +7,14 @@ use App\Entity\User;
 use App\Entity\Message;
 use App\Entity\Post;
 use App\Entity\Categorie;
+use App\Form\MessageType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -27,18 +29,6 @@ class AdvertController extends AbstractController
   public function index($page)
   {
     $entityManager = $this->getDoctrine()->getManager();
-
-        $product = new Message();
-        $product->setContenu('Keyboard');
-
-        $product->setUser(1);
-        $product->setPost(1);
-
-        // tell Doctrine you want to (eventually) save the Product (no queries yet)
-        $entityManager->persist($product);
-
-        // actually executes the queries (i.e. the INSERT query)
-        $entityManager->flush();
     $categorie = $this->getDoctrine()->getManager()->getRepository('App:Categorie')->findAll();
     return $this->render('Advert/index.html.twig', ['categorie' => $categorie]);
   }
@@ -49,7 +39,8 @@ class AdvertController extends AbstractController
   public function post($id) {
     
     $post = $this->getDoctrine()->getManager()->getRepository('App:Post')->find($id);
-    return $this->render('Advert/post.html.twig', ['post' => $post]);
+    $message = $this->getDoctrine()->getManager()->getRepository('App:Message')->findby(array('post' => $id));
+    return $this->render('Advert/post.html.twig', ['post' => $post, 'message' => $message]);
 
   }
 
@@ -65,27 +56,24 @@ class AdvertController extends AbstractController
   }
 
   /**
-   * @Route(name="newmessage")
+   * @Route("/message/{postId}/new", methods="POST", name="newmessage")
+   * @ParamConverter("post", options={"mapping": {"postId": "postId"}})
    */
-  public function addMessage(Request $request)
+  public function addMessage(Request $request, Post $post)
   {
+
     // On crée un objet 
     $message = new Message();
+    $message->setUser($this->getDoctrine()->getManager()->getRepository('App:User')->find(1));
+    $message->setPost($this->getDoctrine()->getManager()->getRepository('App:Post')->find($post));
 
     // On crée le FormBuilder grâce au service form factory
-    $form = $this->get('form.factory')->createBuilder(FormType::class, $message)
-    // On ajoute les champs de l'entité que l'on veut à notre formulaire
-      ->add('contenu',       TextareaType::class)
-      ->add('date',       DateTimeType::class)
-      ->add('user',       TextType::class)
-      ->add('post',       TextType::class)
-      ->add('submit',          SubmitType::class)
-      ->getForm();
+    $form = $this->createForm(MessageType::class, $message);
 
     // Si la requête est en POST
     if ($request->isMethod('POST')) {
       // On fait le lien Requête <-> Formulaire
-      // À partir de maintenant, la variable $advert contient les valeurs entrées dans le formulaire par le visiteur
+      // À partir de maintenant, la variable $form contient les valeurs entrées dans le formulaire par le visiteur
       $form->handleRequest($request);
 
       // On vérifie que les valeurs entrées sont correctes
@@ -99,7 +87,7 @@ class AdvertController extends AbstractController
         $request->getSession()->getFlashBag()->add('notice', 'Annonce bien enregistrée.');
 
         // On redirige vers la page de visualisation de l'annonce nouvellement créée
-        return $this->redirectToRoute('oc_advert_index');
+        return $this->redirectToRoute('oc_advert_post', ['id' => $post->getPostId()]);
       }
     }
 
@@ -109,6 +97,16 @@ class AdvertController extends AbstractController
     return $this->render('Advert/test.html.twig', array(
       'form' => $form->createView(),
     ));
+  }
+
+  public function MessageForm(Request $request, Post $post) {
+
+    $form = $this->createForm(MessageType::class);
+
+    return $this->render('Advert/test.html.twig', [
+        'post' => $post,
+        'form' => $form->createView(),
+      ]);
   }
 
 
