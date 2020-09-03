@@ -39,7 +39,7 @@ class AdvertController extends AbstractController
   public function post($id) {
     
     $post = $this->getDoctrine()->getManager()->getRepository('App:Post')->find($id);
-    $message = $this->getDoctrine()->getManager()->getRepository('App:Message')->findby(array('post' => $id));
+    $message = $this->getDoctrine()->getManager()->getRepository('App:Message')->findby(array('post' => $id), null, 100000,1);
     return $this->render('Advert/post.html.twig', ['post' => $post, 'message' => $message]);
 
   }
@@ -94,7 +94,7 @@ class AdvertController extends AbstractController
     // À ce stade, le formulaire n'est pas valide car :
     // - Soit la requête est de type GET, donc le visiteur vient d'arriver sur la page et veut voir le formulaire
     // - Soit la requête est de type POST, mais le formulaire contient des valeurs invalides, donc on l'affiche de nouveau
-    return $this->render('Advert/test.html.twig', array(
+    return $this->render('Advert/commentform.html.twig', array(
       'form' => $form->createView(),
     ));
   }
@@ -103,10 +103,14 @@ class AdvertController extends AbstractController
 
     $form = $this->createForm(MessageType::class);
 
-    return $this->render('Advert/test.html.twig', [
+    return $this->render('Advert/commentform.html.twig', [
         'post' => $post,
         'form' => $form->createView(),
       ]);
+  }
+
+  public function AnnonceForm(Request $request){
+
   }
 
 
