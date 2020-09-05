@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Post
  *
- * @ORM\Table(name="post", indexes={@ORM\Index(name="mess_id", columns={"mess_id"}), @ORM\Index(name="user_id_post", columns={"user_id"})})
+ * @ORM\Table(name="post", indexes={@ORM\Index(name="user_id_post", columns={"user_id"})})
  * @ORM\Entity
  */
 class Post
@@ -29,14 +29,18 @@ class Post
     private $titre;
 
     /**
-     * @var \Message
+     * @var string
      *
-     * @ORM\ManyToOne(targetEntity="Message")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="mess_id", referencedColumnName="mess_id")
-     * })
+     * @ORM\Column(name="content", type="text", length=65535, nullable=false)
      */
-    private $mess;
+    private $content;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="date", type="datetime", nullable=false)
+     */
+    private $date;
 
     /**
      * @var \User
@@ -58,6 +62,12 @@ class Post
      */
     private $categorie;
 
+    public function __construct()
+    {
+        $this->date = new \DateTime();
+
+    }
+
     public function getPostId(): ?int
     {
         return $this->postId;
@@ -75,14 +85,16 @@ class Post
         return $this;
     }
 
-    public function getMess(): ?message
+    public function getContent(): ?string
     {
-        return $this->mess;
+        return $this->content;
     }
 
-    public function setMess(Message $mess): void
+    public function setContent(?string $content): self
     {
-        $this->mess = $mess;
+        $this->content = $content;
+
+        return $this;
     }
 
     public function getUser(): ?user
@@ -103,6 +115,16 @@ class Post
     public function setCategorie(Categorie $categorie): void
     {
         $this->categorie = $categorie;
+    }
+
+    public function getDate(): \DateTime
+    {
+        return $this->date;
+    }
+
+    public function setDate(\DateTime $date): void
+    {
+        $this->date = $date;
     }
 
 

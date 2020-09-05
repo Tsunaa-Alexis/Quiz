@@ -8,6 +8,7 @@ use App\Entity\Message;
 use App\Entity\Post;
 use App\Entity\Categorie;
 use App\Form\MessageType;
+use App\Form\AnnonceType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -39,7 +40,7 @@ class AdvertController extends AbstractController
   public function post($id) {
     
     $post = $this->getDoctrine()->getManager()->getRepository('App:Post')->find($id);
-    $message = $this->getDoctrine()->getManager()->getRepository('App:Message')->findby(array('post' => $id), null, 100000,1);
+    $message = $this->getDoctrine()->getManager()->getRepository('App:Message')->findby(array('post' => $id), null, 100000,0);
     return $this->render('Advert/post.html.twig', ['post' => $post, 'message' => $message]);
 
   }
@@ -109,8 +110,59 @@ class AdvertController extends AbstractController
       ]);
   }
 
-  public function AnnonceForm(Request $request){
+  /**
+   * @Route("/form/{id}",name="form")
+   */
+  public function AnnonceForm(Request $request, $id){
+    $form = $this->createForm(AnnonceType::class);
 
+    return $this->render('Advert/annonceform.html.twig', [
+        'id' => $id,
+        'form' => $form->createView(),
+      ]);
+  }
+
+  /**
+   * @Route("/annonce/{id}/new", methods="POST", name="newannonce")
+   */
+  public function addAnnonce(Request $request, $id)
+  {
+
+    // On crée un objet 
+    $post = new Post();
+    $post->setUser($this->getDoctrine()->getManager()->getRepository('App:User')->find(1));
+    $post->setCategorie($this->getDoctrine()->getManager()->getRepository('App:Categorie')->find($id));
+
+    // On crée le FormBuilder grâce au service form factory
+    $form = $this->createForm(AnnonceType::class, $post);
+
+    // Si la requête est en POST
+    if ($request->isMethod('POST')) {
+      // On fait le lien Requête <-> Formulaire
+      // À partir de maintenant, la variable $form contient les valeurs entrées dans le formulaire par le visiteur
+      $form->handleRequest($request);
+
+      // On vérifie que les valeurs entrées sont correctes
+      // (Nous verrons la validation des objets en détail dans le prochain chapitre)
+      if ($form->isValid()) {
+        // On enregistre notre objet $advert dans la base de données, par exemple
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($post);
+        $em->flush();
+
+        $request->getSession()->getFlashBag()->add('notice', 'Annonce bien enregistrée.');
+
+        // On redirige vers la page de visualisation de l'annonce nouvellement créée
+        return $this->redirectToRoute('oc_advert_index');
+      }
+    }
+
+    // À ce stade, le formulaire n'est pas valide car :
+    // - Soit la requête est de type GET, donc le visiteur vient d'arriver sur la page et veut voir le formulaire
+    // - Soit la requête est de type POST, mais le formulaire contient des valeurs invalides, donc on l'affiche de nouveau
+    return $this->render('Advert/commentform.html.twig', array(
+      'form' => $form->createView(),
+    ));
   }
 
 
