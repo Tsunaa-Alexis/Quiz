@@ -153,7 +153,7 @@ class AdvertController extends AbstractController
         $request->getSession()->getFlashBag()->add('notice', 'Annonce bien enregistrée.');
 
         // On redirige vers la page de visualisation de l'annonce nouvellement créée
-        return $this->redirectToRoute('oc_advert_index');
+        return $this->redirectToRoute('oc_advert_annonces', ['id' => $id]);
       }
     }
 

@@ -1,4 +1,27 @@
 {# templates/Advert/annonceform.html.twig #}
+{% extends "base.html.twig" %}
 
+{% block title %}{{ parent() }} - Formulaire Annonces{% endblock %}
+
+{% block breadcrumb %}
+  <li class="breadcrumb-item"><a href="{{ path('oc_advert_index')}}">Home</a></li>
+  <li class="breadcrumb-item active" aria-current="page">Formulaire Annonces</li>
+{% endblock %}
+
+{% block body %}
 {{ form_start(form, {method: 'POST', action: path('newannonce',{'id': id})}) }}
+{{ form_errors(form) }}
+    <form>
+        <div class="form-group">
+            <label for="exampleInputEmail1">Titre</label>
+            {{ form_widget(form.titre, {attr: {'class': 'form-control'}}) }}
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">Votre Message</label>
+            {{ form_widget(form.content, {attr: {'class': 'form-control'}}) }}
+        </div>
+        {{ form_widget(form.ajouter, {'attr': {'class': 'btn btn-secondary comment-send'}}) }}
+    </form>
 {{ form_end(form) }}
+
+{% endblock %}
