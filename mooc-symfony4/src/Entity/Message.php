@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Message
  *
- * @ORM\Table(name="message", indexes={@ORM\Index(name="user_id", columns={"user_id"})})
+ * @ORM\Table(name="message", indexes={@ORM\Index(name="user_id_message", columns={"user_id"})})
  * @ORM\Entity
  */
 class Message
@@ -40,7 +40,7 @@ class Message
      *
      * @ORM\ManyToOne(targetEntity="User")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="user_id", referencedColumnName="user_id")
+     *   @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      * })
      */
     private $user;
