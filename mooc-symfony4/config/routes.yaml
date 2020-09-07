@@ -1,3 +1,5 @@
 # config/routes.yaml
 
-
+app_logout:
+    path: /logout
+    methods: GET

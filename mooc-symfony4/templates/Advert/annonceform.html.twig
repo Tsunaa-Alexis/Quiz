@@ -9,19 +9,17 @@
 {% endblock %}
 
 {% block body %}
-{{ form_start(form, {method: 'POST', action: path('newannonce',{'id': id})}) }}
-{{ form_errors(form) }}
-    <form>
+{{ form_start(form_annonce, {method: 'POST', action: path('newannonce',{'id': id})}) }}
+{{ form_errors(form_annonce) }}
         <div class="form-group">
             <label for="exampleInputEmail1">Titre</label>
-            {{ form_widget(form.titre, {attr: {'class': 'form-control'}}) }}
+            {{ form_widget(form_annonce.titre, {attr: {'class': 'form-control'}}) }}
         </div>
         <div class="form-group">
             <label for="exampleInputPassword1">Votre Message</label>
-            {{ form_widget(form.content, {attr: {'class': 'form-control'}}) }}
+            {{ form_widget(form_annonce.content, {attr: {'class': 'form-control'}}) }}
         </div>
-        {{ form_widget(form.ajouter, {'attr': {'class': 'btn btn-secondary comment-send'}}) }}
-    </form>
-{{ form_end(form) }}
+        {{ form_widget(form_annonce.ajouter, {'attr': {'class': 'btn btn-secondary comment-send'}}) }}
+{{ form_end(form_annonce) }}
 
 {% endblock %}

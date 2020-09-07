@@ -18,6 +18,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * @Route("/index")
@@ -65,7 +66,7 @@ class AdvertController extends AbstractController
 
     // On crée un objet 
     $message = new Message();
-    $message->setUser($this->getDoctrine()->getManager()->getRepository('App:User')->find(1));
+    $message->setUser($this->getUser());
     $message->setPost($this->getDoctrine()->getManager()->getRepository('App:Post')->find($post));
 
     // On crée le FormBuilder grâce au service form factory
@@ -118,7 +119,7 @@ class AdvertController extends AbstractController
 
     return $this->render('Advert/annonceform.html.twig', [
         'id' => $id,
-        'form' => $form->createView(),
+        'form_annonce' => $form->createView(),
       ]);
   }
 
@@ -130,7 +131,7 @@ class AdvertController extends AbstractController
 
     // On crée un objet 
     $post = new Post();
-    $post->setUser($this->getDoctrine()->getManager()->getRepository('App:User')->find(1));
+    $post->setUser($this->getUser());
     $post->setCategorie($this->getDoctrine()->getManager()->getRepository('App:Categorie')->find($id));
 
     // On crée le FormBuilder grâce au service form factory
@@ -160,8 +161,9 @@ class AdvertController extends AbstractController
     // À ce stade, le formulaire n'est pas valide car :
     // - Soit la requête est de type GET, donc le visiteur vient d'arriver sur la page et veut voir le formulaire
     // - Soit la requête est de type POST, mais le formulaire contient des valeurs invalides, donc on l'affiche de nouveau
-    return $this->render('Advert/commentform.html.twig', array(
-      'form' => $form->createView(),
+    return $this->render('Advert/annonceform.html.twig', array(
+      'id' => $id,
+      'form_annonce' => $form->createView(),
     ));
   }
 
