@@ -1,0 +1,59 @@
+{# templates/Advert/profil.html.twig #}
+
+{% extends "base.html.twig" %}
+
+{% block title %}{{ parent() }} - Post{% endblock %}
+
+{% block breadcrumb %}
+{% endblock %}
+
+{% block body %}
+<div class="row">
+  	<div class="col-sm-3"><!--left col-->
+        <div class="text-center">
+            <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" class="avatar img-circle img-thumbnail" alt="avatar">
+            <a href="#" type="button" class="btn btn-primary">Changer</a>
+        </div></hr><br>
+    </div>
+    <div class="col-sm-9">
+        <div class="card">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-md-11">
+                        <h5>Informations Personnelles</h5>
+                    </div>
+                    <div class="col-md-1">
+                        <a href="#">Edit</a>
+                    </div>
+                </div>     
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>Pseudo :</label>
+                    </div>
+                    <div class="col-md-6">
+                        <p>Kshiti123</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>Email :</label>
+                    </div>
+                    <div class="col-md-6">
+                        <p>Kshiti123</p>
+                    </div>
+                </div>
+                 <div class="row">
+                    <div class="col-md-6">
+                        <label>Rôle :</label>
+                    </div>
+                    <div class="col-md-6">
+                        <p>Kshiti123</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
