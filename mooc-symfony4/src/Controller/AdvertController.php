@@ -167,13 +167,7 @@ class AdvertController extends AbstractController
     ));
   }
 
-  /**
-   * @Route("/profil", name="profil")
-   */
-  public function showprofil() {
-    return $this->render('Advert/profil.html.twig');
 
-  }
 
 
   

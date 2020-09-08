@@ -18,7 +18,7 @@
         <div class="row flex-nowrap justify-content-between align-items-center">
             <div class="col-4 pt-1">
                 {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                <a class="text-muted" href="#">Profil</a>
+                <a class="text-muted" href="{{ path('profile')}}">Profile</a>
                 {% else %}
                 <a class="text-muted" href="{{ path('app_register')}}">Inscription</a>
                 {% endif %}

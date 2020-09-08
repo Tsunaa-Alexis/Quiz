@@ -11,10 +11,13 @@
 <div class="row">
   	<div class="col-sm-3"><!--left col-->
         <div class="text-center">
-            <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" class="avatar img-circle img-thumbnail" alt="avatar">
+            <img src="http://localhost/teste/Quiz/mooc-symfony4/public/build/images/bg-header-index.jpg" class="avatar img-circle img-thumbnail" alt="avatar">
+            {% block edit1 %}
             <a href="#" type="button" class="btn btn-primary">Changer</a>
+            {% endblock %}
         </div></hr><br>
     </div>
+    {% block update %}
     <div class="col-sm-9">
         <div class="card">
             <div class="card-header">
@@ -23,17 +26,17 @@
                         <h5>Informations Personnelles</h5>
                     </div>
                     <div class="col-md-1">
-                        <a href="#">Edit</a>
-                    </div>
+                        <a href="{{ path('user_edit')}}">Edit</a>
+                    </div>  
                 </div>     
-            </div>
+            </div> 
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-6">
                         <label>Pseudo :</label>
                     </div>
                     <div class="col-md-6">
-                        <p>Kshiti123</p>
+                        <p>{{user.pseudo}}</p>
                     </div>
                 </div>
                 <div class="row">
@@ -41,7 +44,7 @@
                         <label>Email :</label>
                     </div>
                     <div class="col-md-6">
-                        <p>Kshiti123</p>
+                        <p>{{user.email}}</p>
                     </div>
                 </div>
                  <div class="row">
@@ -49,11 +52,28 @@
                         <label>Rôle :</label>
                     </div>
                     <div class="col-md-6">
-                        <p>Kshiti123</p>
+                        <p>
+                        {% for role in user.roles %}
+                            {{role|replace({'ROLE_': ""})}},
+                        {% endfor %} 
+                        </p>
                     </div>
                 </div>
             </div>
         </div>
+        <div class="card mt-5">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-md-11">
+                        <h5>Mot de passe</h5>
+                    </div>
+                </div>     
+            </div> 
+            <div class="card-body">
+                <a href="{{ path('user_change_password')}}" type="button" class="btn btn-primary">Changer le mot de passe</a>
+            </div>
+        </div>
     </div>
+    {% endblock %}
 </div>
 {% endblock %}
