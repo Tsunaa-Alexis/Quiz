@@ -11,9 +11,9 @@
 <div class="row">
   	<div class="col-sm-3"><!--left col-->
         <div class="text-center">
-            <img src="http://localhost/teste/Quiz/mooc-symfony4/public/build/images/bg-header-index.jpg" class="avatar img-circle img-thumbnail" alt="avatar">
+            <img src="http://localhost/teste/Quiz/mooc-symfony4/public/build/images/{{user.url_img}}" class="avatar img-circle img-thumbnail" alt="avatar">
             {% block edit1 %}
-            <a href="#" type="button" class="btn btn-primary">Changer</a>
+            <a href="{{ path('user_image')}}" type="button" class="btn btn-primary">Changer</a>
             {% endblock %}
         </div></hr><br>
     </div>

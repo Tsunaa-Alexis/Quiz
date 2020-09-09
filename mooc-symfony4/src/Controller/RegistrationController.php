@@ -29,6 +29,7 @@ class RegistrationController extends AbstractController
                     $form->get('plainPassword')->getData()
                 )
             );
+            $user->setUrl_img('bg-header-index');
             //$user->setRoles([ROLE_ADMIN]);
 
             $entityManager = $this->getDoctrine()->getManager();

@@ -164,5 +164,10 @@ class User implements UserInterface
         return $this;
     }
 
+    public function getUrl_img(): ?string
+    {
+        return $this->url_img;
+    }
+
 
 }

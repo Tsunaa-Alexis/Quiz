@@ -138,6 +138,9 @@
             "./config/packages/sensio_framework_extra.yaml"
         ]
     },
+    "symfony/asset": {
+        "version": "v5.1.5"
+    },
     "symfony/cache": {
         "version": "v5.1.2"
     },
@@ -310,6 +313,9 @@
     "symfony/polyfill-php80": {
         "version": "v1.18.0"
     },
+    "symfony/polyfill-uuid": {
+        "version": "v1.18.1"
+    },
     "symfony/profiler-pack": {
         "version": "v1.0.4"
     },
@@ -388,6 +394,9 @@
     },
     "symfony/twig-pack": {
         "version": "v1.0.0"
+    },
+    "symfony/uid": {
+        "version": "v5.1.5"
     },
     "symfony/validator": {
         "version": "4.3",

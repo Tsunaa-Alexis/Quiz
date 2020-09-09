@@ -71,6 +71,7 @@ class UserController extends AbstractController
         }
 
         return $this->render('user/changepassword.html.twig', [
+            'user' => $user,
             'form' => $form->createView(),
         ]);
     }
@@ -84,20 +85,19 @@ class UserController extends AbstractController
         $avatar = new Avatar();
 
         $form = $this->createForm(AvatarType::class, $avatar);
-        $form->handleRequest($request);
 
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $avatar->upload();
-            $user->setUrl_img($avatar->getUrl());
+        if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($avatar);
+            $user->setUrl_img($avatar->getAlt());
             $em->flush();
 
-            return $this->redirectToRoute('oc_advert_index');
+            return $this->redirectToRoute('profile');
         }
 
         return $this->render('user/image.html.twig', [
+            'user' => $user,
             'form' => $form->createView(),
         ]);
     }
