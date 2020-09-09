@@ -5,7 +5,9 @@ namespace App\Entity;
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Security\Core\User\UserInterface;
+
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
@@ -46,6 +48,12 @@ class User implements UserInterface
      * @ORM\Column(type="boolean")
      */
     private $isVerified = false;
+
+    /**
+     * @ORM\Column(name="url_img", type="string", length=255)
+     */
+    private $url_img;
+  
 
     public function getId(): ?int
     {
@@ -148,4 +156,13 @@ class User implements UserInterface
 
         return $this;
     }
+
+    public function setUrl_img(string $url_img): self
+    {
+        $this->url_img = $url_img;
+
+        return $this;
+    }
+
+
 }

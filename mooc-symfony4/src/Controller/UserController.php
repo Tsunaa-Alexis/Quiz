@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Form\UserType;
 use App\Form\ChangePasswordType;
+use App\Form\AvatarType;
+use App\Entity\Avatar;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -69,6 +71,33 @@ class UserController extends AbstractController
         }
 
         return $this->render('user/changepassword.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/image", methods="GET|POST", name="user_image")
+     */
+    public function image(Request $request)
+    {
+        $user = $this->getUser();
+        $avatar = new Avatar();
+
+        $form = $this->createForm(AvatarType::class, $avatar);
+        $form->handleRequest($request);
+
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $avatar->upload();
+            $user->setUrl_img($avatar->getUrl());
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($avatar);
+            $em->flush();
+
+            return $this->redirectToRoute('oc_advert_index');
+        }
+
+        return $this->render('user/image.html.twig', [
             'form' => $form->createView(),
         ]);
     }
