@@ -1,0 +1,46 @@
+{# templates/admin/panel_user.html.twig #}
+
+{% extends 'admin/panel.html.twig' %}
+
+{% block main %}
+  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Utilisateurs</h1>
+    <div class="btn-toolbar mb-2 mb-md-0">
+      <div class="btn-group mr-2">
+        <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
+        <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
+      </div>
+      <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
+        <span data-feather="calendar"></span>
+        his week
+      </button>
+    </div>
+  </div>
+
+	<table class="table" data-toggle="table" data-pagination="true" data-search="true"  data-page-size="10" data-page-list="[all, 10, 100, 200]">
+  	<thead class="thead-dark">
+			<tr>
+				<th data-sortable="true" data-field="date" scope="col">ID</th>
+				<th data-sortable="true" data-field="cid" scope="col">Email</th>
+				<th data-sortable="true" data-field="Nom" scope="col">Pseudo</th>
+				<th data-sortable="true" data-field="espaceclient" scope="col">Roles</th>					
+				<th data-field="Modifier" scope="col">Modifier</th>
+			</tr>
+		</thead>
+		<tbody>
+      {% for user_n in user %}
+      <tr>
+				<td>{{user_n.id}}</td>
+				<td>{{user_n.email}}</td>
+				<td>{{user_n.pseudo}}</td>
+				<td>
+          {% for role in user_n.roles %}
+            {{role|replace({'ROLE_': ""})}},
+          {% endfor %}
+        </td>
+        <td><a href="{{ path('panel_admin_user_edit', { 'id' : user_n.id })}}" type="button" class="btn btn-primary">Modifier</a></td>
+			</tr>
+      {% endfor %}
+		</tbody>
+	</table>
+{% endblock %}

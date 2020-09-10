@@ -9,7 +9,9 @@
   <title>{% block title %}Forum{% endblock %}</title>
 
   {% block stylesheets %}
+    <script src="https://kit.fontawesome.com/768b55194c.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.17.1/dist/bootstrap-table.min.css">
   {% endblock %}
 </head>
 
@@ -18,9 +20,12 @@
         <div class="row flex-nowrap justify-content-between align-items-center">
             <div class="col-4 pt-1">
                 {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                <a class="text-muted" href="{{ path('profile')}}">Profile</a>
+                    <a class="text-muted" href="{{ path('profile')}}">Profile</a>
                 {% else %}
-                <a class="text-muted" href="{{ path('app_register')}}">Inscription</a>
+                    <a class="text-muted" href="{{ path('app_register')}}">Inscription</a>
+                {% endif %}
+                {% if is_granted('ROLE_ADMIN') %}
+                    <a class="text-muted" href="{{ path('panel_admin')}}">Admin</a>
                 {% endif %}
             </div>
             <div class="col-4 text-center">
@@ -53,5 +58,6 @@
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+        <script src="https://unpkg.com/bootstrap-table@1.17.1/dist/bootstrap-table.min.js"></script>
     {% endblock %}
 </body>
