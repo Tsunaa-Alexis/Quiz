@@ -23,7 +23,8 @@
 				<th data-sortable="true" data-field="date" scope="col">ID</th>
 				<th data-sortable="true" data-field="cid" scope="col">Email</th>
 				<th data-sortable="true" data-field="Nom" scope="col">Pseudo</th>
-				<th data-sortable="true" data-field="espaceclient" scope="col">Roles</th>					
+				<th data-sortable="true" data-field="espaceclient" scope="col">Roles</th>
+        <th data-field="Mdp" scope="col">Changer Mot de passe</th>					
 				<th data-field="Modifier" scope="col">Modifier</th>
 			</tr>
 		</thead>
@@ -35,9 +36,10 @@
 				<td>{{user_n.pseudo}}</td>
 				<td>
           {% for role in user_n.roles %}
-            {{role|replace({'ROLE_': ""})}},
+            {{role|replace({'ROLE_': ""})}},    
           {% endfor %}
         </td>
+        <td><a href="{{ path('panel_admin_change_password', { 'id' : user_n.id })}}" type="button" class="btn btn-danger">Changer mot de passe</a></td>
         <td><a href="{{ path('panel_admin_user_edit', { 'id' : user_n.id })}}" type="button" class="btn btn-primary">Modifier</a></td>
 			</tr>
       {% endfor %}

@@ -10,6 +10,15 @@
             <div class="form-group">
                 {{ form_row(form.email, {attr: {'class': 'form-control'}}) }}
             </div>
+            <div class="form-group">
+                {% for roles in form.roles %}
+                    <div class="form-check form-check-inline">
+                        {{ form_widget(roles, {attr: {'class': 'form-check-input form-check-label'}}) }}
+                        {{ form_label(roles) }}
+                    </div>
+                
+                {% endfor %}
+            </div>
             <button type="submit" class="btn btn-primary mx-auto">
                 <i class="fa fa-save" aria-hidden="true"></i> {{ 'Sauvegarder'|trans }}
             </button>

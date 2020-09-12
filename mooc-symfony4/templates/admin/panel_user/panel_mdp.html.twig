@@ -1,0 +1,19 @@
+{# templates/admin/panel_user/panel_edit.html.twig #}
+
+{% extends 'admin/panel_user.html.twig' %}
+{% block main %}
+    <h1 class="h2">{{user.pseudo}}</h1>
+    {{ form_start(form) }}
+        <div class="container">
+            <div class="form-group">
+                            {{ form_row(form.newPassword.first, {attr: {'class': 'form-control'}}) }}
+                        </div>
+                        <div class="form-group">
+                            {{ form_row(form.newPassword.second, {attr: {'class': 'form-control'}}) }}
+                        </div>
+            <button type="submit" class="btn btn-primary mx-auto">
+                <i class="fa fa-save" aria-hidden="true"></i> {{ 'Sauvegarder'|trans }}
+            </button>
+        </div>
+    {{ form_end(form) }}
+{% endblock %}

@@ -4,10 +4,12 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\PanelUserType;
+use App\Form\Admin_ChangePasswordType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
  * @Route("/admin")
@@ -49,6 +51,29 @@ class AdminController extends AbstractController
         }
 
         return $this->render('admin/panel_user/panel_edit.html.twig', [
+            'user' => $user,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/panel_change-password/{id}", methods="GET|POST", name="panel_admin_change_password")
+     */
+    public function panel_changePassword(Request $request, UserPasswordEncoderInterface $encoder, User $user)
+    {
+
+        $form = $this->createForm(Admin_ChangePasswordType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $user->setPassword($encoder->encodePassword($user, $form->get('newPassword')->getData()));
+
+            $this->getDoctrine()->getManager()->flush();
+
+            return $this->redirectToRoute('panel_admin_user');
+        }
+
+        return $this->render('admin/panel_user/panel_mdp.html.twig', [
             'user' => $user,
             'form' => $form->createView(),
         ]);
