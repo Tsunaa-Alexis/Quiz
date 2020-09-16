@@ -26,7 +26,6 @@
 				<th data-sortable="true" data-field="cid" scope="col">Titre</th>
 				<th data-sortable="true" data-field="Nom" scope="col">Contenu</th>
         <th data-sortable="true" data-field="Noem" scope="col">date</th>
-        <th data-sortable="true" data-field="Nomd" scope="col">Messages</th>
         <th data-field="Mdp" scope="col">Modifier</th>					
 				<th data-field="Modifier" scope="col">Supprimer</th>
 			</tr>
@@ -35,14 +34,13 @@
       {% for post_n in post %}
       <tr>
 				<td>{{post_n.postId}}</td>
-				<td>{{post_n.categorie.catName}}</td>
+				<td>{{post_n.categorie.catName}}</td> 
         <td>{{post_n.user.pseudo}}</td>
 				<td>{{post_n.titre}}</td>
         <td>{{post_n.content}}</td>
         <td>{{post_n.date|format_datetime('full', 'short', locale='fr')}}</td>
-        <td><a href="" type="button" class="btn btn-primary">Messages</a></td>
-        <td><a href="" type="button" class="btn btn-primary">Modifier</a></td>
-        <td><a href="" type="button" class="btn btn-danger">Supprimer</a></td>
+        <td><a href="{{ path('panel_admin_annonce_edit', {'id' : post_n.postId })}}" type="button" class="btn btn-primary">Modifier</a></td>
+        <td><a href="{{ path('panel_admin_annonce_del', {'id' : post_n.postId })}}" type="button" class="btn btn-danger">Supprimer</a></td>
 			</tr>
       {% endfor %}
 		</tbody>

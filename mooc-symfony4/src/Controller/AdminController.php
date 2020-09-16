@@ -200,6 +200,44 @@ class AdminController extends AbstractController
         ));
     }
 
+    /**
+     * @Route("/panel_annonce_edit/{id}", methods="GET|POST", name="panel_admin_annonce_edit")
+     */
+    public function panel_annonce_edit(Request $request, Post $post)
+    {
+        $form = $this->createForm(NewAnnonceType::class, $post);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+
+            $this->addFlash('success', 'user.updated_successfully');
+
+            return $this->redirectToRoute('panel_admin_annonce');
+        }
+
+        return $this->render('admin/panel_annonce/panel_add_post.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+    
+    /**
+     * @Route("/panel_annonce_del/{id}", name="panel_admin_annonce_del")
+     */
+    public function panel_annonce_del(Request $request, Post $post)
+    {
+        if (!$post) {
+            throw $this->createNotFoundException('No guest found');
+        }
+    
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($post);
+        $em->flush();
+
+        return $this->redirectToRoute('panel_admin_annonce');
+        
+    }
+
 
 
 

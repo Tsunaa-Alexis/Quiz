@@ -55,7 +55,7 @@ class Post
     /**
      * @var \Categorie
      *
-     * @ORM\ManyToOne(targetEntity="Categorie", cascade={"remove"})
+     * @ORM\ManyToOne(targetEntity="Categorie")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="categorie_id", referencedColumnName="categorie_id", onDelete="CASCADE")
      * })
