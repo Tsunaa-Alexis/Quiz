@@ -27,7 +27,7 @@ class Admin_ChangePasswordType extends AbstractType
                     ]),
                 ],
                 'first_options' => [
-                    'label' => 'Nouveau',
+                    'label' => 'Nouveau mot de passe',
                 ],
                 'second_options' => [
                     'label' => 'Saisir à nouveau',

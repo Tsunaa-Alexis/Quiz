@@ -1,0 +1,50 @@
+{# templates/admin/panel_annonce.html.twig #}
+
+{% extends 'admin/panel.html.twig' %}
+
+{% block main %}
+  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Annonces</h1>
+    <div class="btn-toolbar mb-2 mb-md-0">
+      <div class="btn-group mr-2">
+        <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
+        <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
+      </div>
+      <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
+        <span data-feather="calendar"></span>
+        his week
+      </button>
+    </div>
+  </div>
+    <a href="{{ path('panel_admin_annonce_add') }}">Ajouter une annonce</a>
+	<table class="table" data-toggle="table" data-pagination="true" data-search="true"  data-page-size="10" data-page-list="[all, 10, 100, 200]">
+  	<thead class="thead-dark">
+			<tr>
+				<th data-sortable="true" data-field="date" scope="col">ID</th>
+        <th data-sortable="true" data-field="categorie" scope="col">Categorie</th>
+        <th data-sortable="true" data-field="Auteur" scope="col">Auteur</th>
+				<th data-sortable="true" data-field="cid" scope="col">Titre</th>
+				<th data-sortable="true" data-field="Nom" scope="col">Contenu</th>
+        <th data-sortable="true" data-field="Noem" scope="col">date</th>
+        <th data-sortable="true" data-field="Nomd" scope="col">Messages</th>
+        <th data-field="Mdp" scope="col">Modifier</th>					
+				<th data-field="Modifier" scope="col">Supprimer</th>
+			</tr>
+		</thead>
+		<tbody>
+      {% for post_n in post %}
+      <tr>
+				<td>{{post_n.postId}}</td>
+				<td>{{post_n.categorie.catName}}</td>
+        <td>{{post_n.user.pseudo}}</td>
+				<td>{{post_n.titre}}</td>
+        <td>{{post_n.content}}</td>
+        <td>{{post_n.date|format_datetime('full', 'short', locale='fr')}}</td>
+        <td><a href="" type="button" class="btn btn-primary">Messages</a></td>
+        <td><a href="" type="button" class="btn btn-primary">Modifier</a></td>
+        <td><a href="" type="button" class="btn btn-danger">Supprimer</a></td>
+			</tr>
+      {% endfor %}
+		</tbody>
+	</table>
+{% endblock %}

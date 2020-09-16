@@ -1,0 +1,21 @@
+{# templates/admin/panel_annonce/panel_add_annonce.html.twig #}
+
+{% extends 'admin/panel_annonce.html.twig' %}
+{% block main %}
+    {{ form_start(form) }}
+        <div class="container">
+            <div class="form-group">
+                {{ form_row(form.titre, {attr: {'class': 'form-control'}}) }}
+            </div>
+            <div class="form-group">
+                {{ form_row(form.content, {attr: {'class': 'form-control'}}) }}
+            </div>
+            <div class="form-group">
+                {{ form_row(form.categorie, {attr: {'class': 'form-control'}}) }}
+            </div>
+            <button type="submit" class="btn btn-primary mx-auto">
+                <i class="fa fa-save" aria-hidden="true"></i> {{ 'Sauvegarder'|trans }}
+            </button>
+        </div>
+    {{ form_end(form) }}
+{% endblock %}

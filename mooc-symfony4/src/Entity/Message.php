@@ -48,9 +48,9 @@ class Message
     /**
      * @var \Post
      *
-     * @ORM\ManyToOne(targetEntity="Post")
+     * @ORM\ManyToOne(targetEntity="Post", cascade={"remove"})
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="post_id", referencedColumnName="post_id")
+     *   @ORM\JoinColumn(name="post_id", referencedColumnName="post_id", onDelete="CASCADE")
      * })
      */
     private $post;
